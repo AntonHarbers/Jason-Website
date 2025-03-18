@@ -11,7 +11,6 @@ export function Button({ invert = false, className, children, ...props }) {
   )
 
   let inner = <span className="relative top-px">{children}</span>
-
   if (typeof props.href === 'undefined') {
     return (
       <button className={className} {...props}>

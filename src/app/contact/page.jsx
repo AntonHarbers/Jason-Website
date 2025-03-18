@@ -1,4 +1,6 @@
-import { useId } from 'react'
+'use client'
+
+import { useId, useState } from 'react'
 import Link from 'next/link'
 
 import { Border } from '@/components/Border'
@@ -45,27 +47,84 @@ function RadioInput({ label, ...props }) {
 }
 
 function ContactForm() {
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    company: '',
+    phone: '',
+    message: '',
+  })
+
+  const [status, setStatus] = useState(null)
+
+  const handleChange = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value })
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      })
+      const result = await response.json()
+      setStatus(result.success ? 'success' : 'error')
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <FadeIn className="lg:order-last">
-      <form className="bg-dark-blue">
+      <form onSubmit={handleSubmit} className="bg-dark-blue">
         <h2 className="font-display text-base font-semibold text-white">
           Get in touch
         </h2>
         <div className="isolate mt-6 -space-y-px rounded-2xl bg-white">
-          <TextInput label="Name" name="name" autoComplete="name" />
+          <TextInput
+            label="Name"
+            name="name"
+            autoComplete="name"
+            onChange={handleChange}
+            value={form.name}
+            required
+          />
           <TextInput
             label="Email"
             type="email"
             name="email"
             autoComplete="email"
+            onChange={handleChange}
+            value={form.email}
+            required
           />
           <TextInput
             label="Company"
             name="company"
             autoComplete="organization"
+            onChange={handleChange}
+            value={form.company}
           />
-          <TextInput label="Phone" type="tel" name="phone" autoComplete="tel" />
-          <TextInput label="Message" name="message" />
+          <TextInput
+            label="Phone"
+            type="tel"
+            name="phone"
+            autoComplete="tel"
+            onChange={handleChange}
+            value={form.phone}
+          />
+          <TextInput
+            label="Message"
+            name="message"
+            onChange={handleChange}
+            value={form.message}
+            required
+          />
         </div>
         <div className="flex w-full justify-center">
           <button
@@ -117,16 +176,11 @@ function ContactDetails() {
   )
 }
 
-export const metadata = {
-  title: 'Contact Us',
-  description: 'Let’s work together. We can’t wait to hear from you.',
-}
-
 export default function Contact() {
   return (
     <>
-      <div className="mt-8 flex h-auto flex-col items-start justify-center gap-y-10 sm:mt-32 lg:mt-32 lg:flex-row lg:items-start lg:justify-around">
-        <div className="mx-auto w-[50%] lg:mx-0">
+      <div className="mt-20 flex h-auto flex-col items-start justify-center gap-y-10 sm:mt-32 lg:flex-row lg:items-start lg:justify-around">
+        <div className="mx-auto lg:mx-0 lg:w-[50%]">
           <PageIntro
             eyebrow="Contact us"
             title="Ready to enhance your communication capabilities?"
@@ -137,7 +191,7 @@ export default function Contact() {
             </p>
           </PageIntro>
         </div>
-        <div className="mx-auto w-[80%] rounded-md bg-[var(--color-dark-blue)] p-8 lg:mx-0 lg:w-[30%]">
+        <div className="mx-auto w-full rounded-md bg-[var(--color-dark-blue)] p-8 lg:mx-0 lg:w-[40%]">
           <ContactForm />
         </div>
       </div>

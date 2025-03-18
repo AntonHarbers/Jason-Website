@@ -11,8 +11,8 @@ function Clients() {
   return (
     <div className="mt-24 rounded-4xl bg-[var(--color-dark-blue)] py-20 sm:mt-32 sm:py-32 lg:mt-56">
       <Container>
-        <FadeIn className="m-[-50px] flex items-center justify-between gap-x-8">
-          <div className="flex h-auto w-[70%] flex-col items-center gap-y-6 font-display text-lg font-semibold text-white sm:text-left">
+        <FadeIn className="flex flex-col-reverse items-center justify-between gap-x-8 gap-y-10 lg:flex-row">
+          <div className="flex h-auto w-full flex-col items-center gap-y-6 font-display text-lg font-semibold text-white sm:text-left lg:w-[70%]">
             <h2>
               Welcome to Relio Group/Interpreza, your trusted partner in
               delivering exceptional Spanish interpretation services.
@@ -29,7 +29,7 @@ function Clients() {
             </h2>
           </div>
 
-          <div className="h-auto w-[20%]">
+          <div className="h-auto w-[50%] lg:w-[20%]">
             <StylizedImage
               src={imageLaptop}
               sizes="(min-width: 50px) 20rem, 20rem"

@@ -22,7 +22,10 @@ const navigation = [
 function Navigation() {
   return (
     <nav>
-      <ul role="list" className="flex w-full justify-between">
+      <ul
+        role="list"
+        className="flex w-full flex-col items-center justify-between gap-y-7 sm:flex-row md:gap-y-0"
+      >
         {navigation.map((section, sectionIndex) => (
           <li key={sectionIndex} className="">
             <ul role="list" className="flex gap-x-4 text-sm text-neutral-700">
@@ -82,10 +85,10 @@ export function Footer() {
         <Navigation />
         <div className="mt-24 mb-20 flex flex-wrap items-end justify-between gap-x-6 gap-y-4 border-t border-neutral-950/10 pt-12">
           <Link href="/" aria-label="Home">
-            <Logo className="h-8" fillOnHover />
+            <Logo className="h-8" />
           </Link>
           <p className="text-sm text-neutral-700">
-            © Studio Agency Inc. {new Date().getFullYear()}
+            © Relio Group {new Date().getFullYear()}
           </p>
         </div>
       </FadeIn>

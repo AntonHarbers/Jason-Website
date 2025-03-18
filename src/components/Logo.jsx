@@ -35,19 +35,15 @@ export function Logomark({ invert = false, filled = false, ...props }) {
   )
 }
 
-export function Logo({
-  className,
-  invert = false,
-  filled = false,
-  fillOnHover = false,
-  ...props
-}) {
+export function Logo({ className, ...props }) {
   return (
     <Image
       src={logoTransparentPlaceholder}
       alt="Studio Agency"
       width={150}
       height={62}
+      className="h-12 w-auto"
+      priority
       {...props}
     />
   )

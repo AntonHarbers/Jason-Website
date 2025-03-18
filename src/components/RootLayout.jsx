@@ -1,13 +1,6 @@
 'use client'
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useId,
-  useRef,
-  useState,
-} from 'react'
+import { createContext, useEffect, useId, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { motion, MotionConfig, useReducedMotion } from 'framer-motion'
@@ -16,34 +9,37 @@ import { Button } from '@/components/Button'
 import { Container } from '@/components/Container'
 import { Footer } from '@/components/Footer'
 import { GridPattern } from '@/components/GridPattern'
-import { Logo, Logomark } from '@/components/Logo'
+import { Logo } from '@/components/Logo'
+import { FadeIn } from './FadeIn'
 
 const RootLayoutContext = createContext(null)
 
-function Header({ invert = false }) {
-  let { logoHovered, setLogoHovered } = useContext(RootLayoutContext)
+function BurgerMenuIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className="h-8 w-8">
+      <path
+        fill="currentColor"
+        d="M3 4h18v2H3V4Zm0 7h18v2H3v-2Zm0 7h18v2H3v-2Z"
+      />
+    </svg>
+  )
+}
 
+function Header({ invert = false }) {
+  const [open, setOpen] = useState(false)
   return (
     <Container>
       <div className="flex items-center justify-between">
-        <Link
-          href="/"
-          aria-label="Home"
-          onMouseEnter={() => setLogoHovered(true)}
-          onMouseLeave={() => setLogoHovered(false)}
-        >
-          <Logomark
-            className="h-8 sm:hidden"
-            invert={invert}
-            filled={logoHovered}
-          />
-          <Logo
-            className="hidden h-8 sm:block"
-            invert={invert}
-            filled={logoHovered}
-          />
+        <Link href="/" aria-label="Home">
+          <Logo className="hidden h-8 sm:block" />
         </Link>
-        <div className="flex items-center gap-x-8">
+        <button
+          onClick={() => setOpen(!open)}
+          className="cursor-pointer md:hidden"
+        >
+          <BurgerMenuIcon />
+        </button>
+        <div className="hidden items-center gap-x-8 md:flex">
           <Button href="/about" invert={invert}>
             About Us
           </Button>
@@ -56,6 +52,30 @@ function Header({ invert = false }) {
           </Button>
         </div>
       </div>
+      {open && (
+        <FadeIn>
+          <div className="mt-5 flex items-center justify-center gap-x-8 md:hidden">
+            <Link
+              className="rounded-md bg-[var(--color-dark-blue)] px-2 text-white"
+              href="/about"
+            >
+              About
+            </Link>
+            <Link
+              className="rounded-md bg-[var(--color-dark-blue)] px-2 text-white"
+              href="/about"
+            >
+              Services
+            </Link>
+            <Link
+              className="rounded-md bg-[var(--color-dark-blue)] px-2 text-white"
+              href="/about"
+            >
+              Contact us
+            </Link>
+          </div>
+        </FadeIn>
+      )}
     </Container>
   )
 }
@@ -116,7 +136,7 @@ function RootLayoutInner({ children }) {
           className="relative isolate flex w-full flex-col pt-9"
         >
           <GridPattern
-            className="absolute inset-x-0 -top-14 -z-10 h-[1000px] w-full fill-neutral-50 stroke-neutral-950/5 [mask-image:linear-gradient(to_bottom_left,white_40%,transparent_50%)]"
+            className="absolute inset-x-0 -top-14 -z-10 h-[1000px] w-full fill-sky-300/10 stroke-neutral-950/5 [mask-image:linear-gradient(to_bottom_left,white_40%,transparent_50%)]"
             yOffset={-96}
             interactive
           />
