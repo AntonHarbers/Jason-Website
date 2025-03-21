@@ -55,33 +55,33 @@ function ContactForm() {
     message: '',
   })
 
-  const [status, setStatus] = useState(null)
+  //const [status, setStatus] = useState(null)
 
   const handleChange = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value })
   }
 
-  const handleSubmit = async (event) => {
-    event.preventDefault()
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault()
 
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      })
-      const result = await response.json()
-      setStatus(result.success ? 'success' : 'error')
-    } catch (error) {
-      console.error(error)
-    }
-  }
+  //   try {
+  //     const response = await fetch('/api/send-email', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //       },
+  //       body: JSON.stringify(form),
+  //     })
+  //     const result = await response.json()
+  //     setStatus(result.success ? 'success' : 'error')
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
+  // }
 
   return (
     <FadeIn className="lg:order-last">
-      <form onSubmit={handleSubmit} className="bg-dark-blue">
+      <form className="bg-dark-blue">
         <h2 className="font-display text-base font-semibold text-white">
           Get in touch
         </h2>
