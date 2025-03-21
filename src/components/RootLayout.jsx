@@ -106,9 +106,9 @@ function RootLayoutInner({ children }) {
 
   return (
     <MotionConfig transition={shouldReduceMotion ? { duration: 0 } : undefined}>
-      <header>
+      <header className="fixed top-0 right-0 left-0 z-50 bg-white">
         <div
-          className="absolute top-2 right-0 left-0 z-40 pt-14"
+          className="absolute right-0 left-0 z-40 bg-white pt-4 md:pt-0"
           aria-hidden={expanded ? 'true' : undefined}
           inert={expanded ? '' : undefined}
         >

@@ -42,7 +42,7 @@ export function Logo({ className, ...props }) {
       alt="Studio Agency"
       width={150}
       height={62}
-      className="h-12 w-auto"
+      className="h-20 w-auto md:h-28"
       priority
       {...props}
     />
